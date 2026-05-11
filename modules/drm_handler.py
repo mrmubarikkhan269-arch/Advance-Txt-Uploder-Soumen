@@ -246,7 +246,7 @@ async def drm_handler(bot: Client, m: Message):
             channel_id = raw_text7    
         await editable.delete()
 
-      elif m.text:
+            elif m.text:
         if any(ext in links[i][1] for ext in [".pdf", ".jpeg", ".jpg", ".png"] for i in range(len(links))):
             raw_text = '1'
             raw_text7 = '/Baby'
