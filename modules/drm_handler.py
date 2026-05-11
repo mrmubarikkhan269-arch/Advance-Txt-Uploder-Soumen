@@ -142,9 +142,9 @@ async def drm_handler(bot: Client, m: Message):
         return
 
     if m.document:
-        editable = await m.reply_text(f"**Total 🔗 links found are {len(links)}\n<blockquote>•PDF : {pdf_count}      •V2 : {v2_count}\n•Img : {img_count}      •YT : {yt_count}\n•zip : {zip_count}       •m3u8 : {m3u8_count}\n•drm : {drm_count}      •Other : {other_count}\n•mpd : {mpd_count}</blockquote>\nSend From where you want to download**")
+        editable = await m.reply_text(f"**(1). Total 🔗 links found are {len(links)}\n<blockquote>•PDF : {pdf_count}      •V2 : {v2_count}\n•Img : {img_count}      •YT : {yt_count}\n•zip : {zip_count}       •m3u8 : {m3u8_count}\n•drm : {drm_count}      •Other : {other_count}\n•mpd : {mpd_count}</blockquote>\nSend From where you want to download😉.\n\nYour Are On Step: 1/7💥**")
         try:
-            input0: Message = await bot.listen(editable.chat.id, timeout=20)
+            input0: Message = await bot.listen(editable.chat.id, timeout=200)
             raw_text = input0.text
             await input0.delete(True)
         except asyncio.TimeoutError:
@@ -153,25 +153,25 @@ async def drm_handler(bot: Client, m: Message):
         if int(raw_text) > len(links) :
             await editable.edit(f"🔹**Enter number in range of Index (01-{len(links)})**")
             processing_request = False  # Reset the processing flag
-            await m.reply_text("🔹**Processing Cancled......  **")
+            await m.reply_text("🔹**Processing Canclled......  **")
             return
 
-        await editable.edit(f"**Enter Batch Name or send /d**")
+        await editable.edit(f"**(2). Enter Batch Name or send /Bro\n\nYour Are On Step: 2/7💥**")
         try:
-            input1: Message = await bot.listen(editable.chat.id, timeout=20)
+            input1: Message = await bot.listen(editable.chat.id, timeout=200)
             raw_text0 = input1.text
             await input1.delete(True)
         except asyncio.TimeoutError:
-            raw_text0 = '/d'
+            raw_text0 = '/Bro'
       
-        if raw_text0 == '/d':
+        if raw_text0 == '/Bro':
             b_name = file_name.replace('_', ' ')
         else:
             b_name = raw_text0
 
-        await editable.edit("**Enter resolution.\n Eg : 144, 240, 360, 480, 720 or 1080😚**")
+        await editable.edit("**(3). Enter resolution.\n Eg : 144, 240, 360, 480, 720 or 1080😚\n\nYour Are On Step: 3/7💥**")
         try:
-            input2: Message = await bot.listen(editable.chat.id, timeout=30)
+            input2: Message = await bot.listen(editable.chat.id, timeout=300)
             raw_text2 = input2.text
             await input2.delete(True)
         except asyncio.TimeoutError:
@@ -195,33 +195,33 @@ async def drm_handler(bot: Client, m: Message):
             res = "UN"
         quality = f"{raw_text2}p"
 
-        await editable.edit("**Enter Your PW Token or send /d to use default (from Settings)**")
+        await editable.edit("**(4). Enter Your PW Token or send /Vip to use Your Set Token(in Settings)😎.\n\nYour Are On Step: 4/7💥**")
         try:
-            input_tok: Message = await bot.listen(editable.chat.id, timeout=30)
+            input_tok: Message = await bot.listen(editable.chat.id, timeout=300)
             raw_tok = input_tok.text
             await input_tok.delete(True)
         except asyncio.TimeoutError:
-            raw_tok = '/d'
-        if raw_tok == '/d':
+            raw_tok = '/Vip'
+        if raw_tok == '/Vip':
             pwtoken = globals.pwtoken
         else:
             pwtoken = raw_tok
 
-        await editable.edit("**Enter Your Credit Name or send /d for default.\nSupports: `Text|https://url` for hyperlink 😎**")
+        await editable.edit("**(5). Enter Your Credit Name or send /Sobi to Use Your Set Credit Name(in the Settings).\nSupports: `Text|URL` for hyperlink 😎.\n\nYour Are On Step: 5/7💥**")
         try:
-            input3: Message = await bot.listen(editable.chat.id, timeout=20)
+            input3: Message = await bot.listen(editable.chat.id, timeout=200)
             raw_text3 = input3.text
             await input3.delete(True)
         except asyncio.TimeoutError:
-            raw_text3 = '/d'
-        if raw_text3 == '/d':
+            raw_text3 = '/Sobi'
+        if raw_text3 == '/Sobi':
             CR = globals.CR
         else:
             CR = parse_credit(raw_text3)
 
-        await editable.edit("**Now send the Thumb URL\nEg: Ends With .jpg**\n\nor Send `no`")
+        await editable.edit("**(6). Now send the Thumb URL\nEg: Ends With .jpg**\n\nor Send `no`\n\nYour Are On Step: 6/7💥")
         try:
-            input6: Message = await bot.listen(editable.chat.id, timeout=20)
+            input6: Message = await bot.listen(editable.chat.id, timeout=200)
             raw_text6 = input6.text
             await input6.delete(True)
         except asyncio.TimeoutError:
@@ -232,15 +232,15 @@ async def drm_handler(bot: Client, m: Message):
         else:
             thumb = globals.thumb
 
-        await editable.edit("__**⚠️Provide the Channel ID or send /d__\n\n<blockquote><i>🔹 Make me an admin to upload.\n🔸Send /id in your channel to get the Channel ID.\n\nExample: Channel ID = -100XXXXXXXXXXX</i></blockquote>\n**")
+        await editable.edit("__**(7). ⚠️Provide the Channel ID or send /Baby__\n\n<blockquote><i>🔹 Make me an admin to upload.\n\nExample: Channel ID = -100XXXXXXXXXXX\n\nYour Are On Step: 7/7💥**")
         try:
-            input7: Message = await bot.listen(editable.chat.id, timeout=20)
+            input7: Message = await bot.listen(editable.chat.id, timeout=200)
             raw_text7 = input7.text
             await input7.delete(True)
         except asyncio.TimeoutError:
-            raw_text7 = '/d'
+            raw_text7 = '/Baby'
 
-        if "/d" in raw_text7:
+        if "/Baby" in raw_text7:
             channel_id = m.chat.id
         else:
             channel_id = raw_text7    
@@ -249,13 +249,13 @@ async def drm_handler(bot: Client, m: Message):
     elif m.text:
         if any(ext in links[i][1] for ext in [".pdf", ".jpeg", ".jpg", ".png"] for i in range(len(links))):
             raw_text = '1'
-            raw_text7 = '/d'
+            raw_text7 = '/Baby'
             channel_id = m.chat.id
             b_name = '**Link Input**'
             CR = globals.CR
             await m.delete()
         else:
-            editable = await m.reply_text(f"╭━━━━❰ᴇɴᴛᴇʀ ʀᴇꜱᴏʟᴜᴛɪᴏɴ❱━━➣ \n┣━━⪼ send `144`  for 144p\n┣━━⪼ send `240`  for 240p\n┣━━⪼ send `360`  for 360p\n┣━━⪼ send `480`  for 480p\n┣━━⪼ send `720`  for 720p\n┣━━⪼ send `1080` for 1080p\n╰━━⌈⚡[🦋`{CREDIT}`🦋]⚡⌋━━➣ ")
+            editable = await m.reply_text(f"**(1.) Great, Your Link is Captured 🙈\n╭━━━━❰ᴇɴᴛᴇʀ ʀᴇꜱᴏʟᴜᴛɪᴏɴ❱━━➣ \n┣━━⪼ send `144`  for 144p\n┣━━⪼ send `240`  for 240p\n┣━━⪼ send `360`  for 360p\n┣━━⪼ send `480`  for 480p\n┣━━⪼ send `720`  for 720p\n┣━━⪼ send `1080` for 1080p\n╰━━⌈⚡[🦋`{CREDIT}`🦋]⚡⌋━━➣\n\nYour Are On Step: 1/2💥**")
             input2: Message = await bot.listen(editable.chat.id, filters=filters.text & filters.user(m.from_user.id))
             raw_text2 = input2.text
             quality = f"{raw_text2}p"
@@ -279,18 +279,18 @@ async def drm_handler(bot: Client, m: Message):
             except Exception:
                     res = "UN"
 
-            await editable.edit("**Enter Batch Name or send /d**")
+            await editable.edit("**(2). Enter Batch Name or send /Sis\n\nAnd baaki Chize jo Settings\nMe Set hai Wo automatic Lag jaayegi.\n\nJaise ki Credit Name 🌚.\n\nYour Are On Step: 2/2💥**")
             try:
                 input_bn: Message = await bot.listen(editable.chat.id, filters=filters.text & filters.user(m.from_user.id))
                 raw_text0 = input_bn.text
                 await input_bn.delete(True)
             except Exception:
-                raw_text0 = '/d'
-            b_name = '**Link Input**' if raw_text0 == '/d' else raw_text0
+                raw_text0 = '/Sis'
+            b_name = '**Link Input**' if raw_text0 == '/Sis' else raw_text0
 
             CR = globals.CR
             raw_text = '1'
-            raw_text7 = '/d'
+            raw_text7 = '/Baby'
             channel_id = m.chat.id
             path = os.path.join("downloads", "Free Batch")
             await editable.delete()
@@ -304,14 +304,14 @@ async def drm_handler(bot: Client, m: Message):
     try:
         if m.document and raw_text == "1":
             batch_message = await bot.send_message(chat_id=channel_id, text=f"<blockquote><b>🎯Target Batch : {b_name}</b></blockquote>")
-            if "/d" not in raw_text7:
+            if "/Baby" not in raw_text7:
                 await bot.send_message(chat_id=m.chat.id, text=f"<blockquote><b><i>🎯Target Batch : {b_name}</i></b></blockquote>\n\n🔄 Your Task is under processing, please check your Set Channel📱. Once your task is complete, I will inform you 📩")
                 await bot.pin_chat_message(channel_id, batch_message.id)
                 message_id = batch_message.id
                 pinning_message_id = message_id + 1
                 await bot.delete_messages(channel_id, pinning_message_id)
         else:
-             if "/d" not in raw_text7:
+             if "/Baby" not in raw_text7:
                 await bot.send_message(chat_id=m.chat.id, text=f"<blockquote><b><i>🎯Target Batch : {b_name}</i></b></blockquote>\n\n🔄 Your Task is under processing, please check your Set Channel📱. Once your task is complete, I will inform you 📩")
     except Exception as e:
         await m.reply_text(f"**Fail Reason »**\n<blockquote><i>{e}</i></blockquote>\n\n✦𝐁𝐨𝐭 𝐌𝐚𝐝𝐞 𝐁𝐲 ✦ {CREDIT}🌟`")
@@ -358,14 +358,14 @@ async def drm_handler(bot: Client, m: Message):
                         t_name = "Untitled"
                         v_name = re.sub(r":.*", "", raw_title).strip()
                     
-                    if endfilename == "/d":
+                    if endfilename == "/Bro":
                         name = f'{str(count).zfill(3)}) {name1[:60]}'
                         namef = f'{v_name}'
                     else:
                         name = f'{str(count).zfill(3)}) {name1[:60]} {endfilename}'
                         namef = f'{v_name} {endfilename}'
                 else:
-                    if endfilename == "/d":
+                    if endfilename == "/Sis":
                         name = f'{str(count).zfill(3)}) {name1[:60]}'
                         namef = f'{name1[:60]}'
                     else:
