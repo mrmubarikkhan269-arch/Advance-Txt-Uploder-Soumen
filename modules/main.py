@@ -29,6 +29,18 @@ from authorisation import register_authorisation_handlers
 from vars import API_ID, API_HASH, BOT_TOKEN, OWNER, CREDIT, AUTH_USERS, TOTAL_USERS, cookies_file_path
 # .....,.....,.......,...,.......,....., .....,.....,.......,...,.......,.....,
 
+# ── Random image list ────────────────────────────────────────────────────────
+image_list = [
+    "https://graph.org/file/417cc7326cab9036c0152-f6a281db2a6975dfa9.jpg",
+    "https://graph.org/file/033121ad32291bcaddd01-d91ae4a1f7ca9378fc.jpg",
+    "https://graph.org/file/45f48779e0aa39709d1e8-4c024567d60f6ec5c2.jpg",
+    "https://graph.org/file/6ccdd92af77784c9d367e-a4ba6f10456656bbbd.jpg",
+    "https://graph.org/file/b23084c3e9124e14e18ec-d385f8f9c8b1635a2e.jpg",
+    "https://graph.org/file/29c4511ee7a4653d22fe1-67906a2a8392895644.jpg",
+    "https://graph.org/file/b45300f1cd068ad8f1895-fa23a3a1ad25789597.jpg",
+]
+# ─────────────────────────────────────────────────────────────────────────────
+
 # Initialize the bot
 bot = Client(
     "bot",
@@ -71,7 +83,7 @@ async def start(bot, m: Message):
         )
     await bot.send_photo(
         chat_id=m.chat.id,
-        photo="https://graph.org/file/29c4511ee7a4653d22fe1-67906a2a8392895644.jpg",
+        photo=random.choice(image_list),
         caption=caption,
         reply_markup=keyboard
     )
@@ -82,19 +94,19 @@ async def back_to_main_menu(client, callback_query):
     user_id = callback_query.from_user.id
     first_name = callback_query.from_user.first_name
     caption = (
-        f"𝐇𝐞𝐥𝐥𝐨 **{m.from_user.first_name}** 👋!\n\n"
+        f"𝐇𝐞𝐥𝐥𝐨 **{first_name}** 👋!\n\n"
         f"➠ 𝐈 𝐚𝐦 𝐚 𝐓𝐞𝐱𝐭 𝐃𝐨𝐰𝐧𝐥𝐨𝐚𝐝𝐞𝐫 𝐁𝐨𝐭\n\n"
         f"➠ 𝐁𝐲 : [{CREDIT}](tg://openmessage?user_id={OWNER})"
     )
     
     await callback_query.message.edit_media(
       InputMediaPhoto(
-        media="https://graph.org/file/417cc7326cab9036c0152-f6a281db2a6975dfa9.jpg",
+        media=random.choice(image_list),
         caption=caption
       ),
       reply_markup=keyboard
     )
-    await callback_query.answer()  
+    await callback_query.answer()
 
 # .....,.....,.......,...,.......,....., .....,.....,.......,...,.......,.....,
 # .....,.....,.......,...,.......,....., .....,.....,.......,...,.......,.....,

@@ -42,7 +42,6 @@ image_list = [
 
 # ── Credit href parser ────────────────────────────────────────────────────────
 # Supports: "TEXT|https://url" → "[TEXT](https://url)" (Telegram markdown link)
-# Normal text with no "|" passes through unchanged.
 def parse_credit(raw: str) -> str:
     if "|" in raw:
         parts = raw.split("|", 1)
@@ -196,7 +195,19 @@ async def drm_handler(bot: Client, m: Message):
             res = "UN"
         quality = f"{raw_text2}p"
 
-        await editable.edit("**Enter Your Credit Name or send /d for default.\nSupports: `Text|https://url` for hyperlink credit 😎**")
+        await editable.edit("**Enter Your PW Token or send /d to use default (from Settings)**")
+        try:
+            input_tok: Message = await bot.listen(editable.chat.id, timeout=30)
+            raw_tok = input_tok.text
+            await input_tok.delete(True)
+        except asyncio.TimeoutError:
+            raw_tok = '/d'
+        if raw_tok == '/d':
+            pwtoken = globals.pwtoken
+        else:
+            pwtoken = raw_tok
+
+        await editable.edit("**Enter Your Credit Name or send /d for default.\nSupports: `Text|https://url` for hyperlink 😎**")
         try:
             input3: Message = await bot.listen(editable.chat.id, timeout=20)
             raw_text3 = input3.text
@@ -275,10 +286,7 @@ async def drm_handler(bot: Client, m: Message):
                 await input_bn.delete(True)
             except Exception:
                 raw_text0 = '/d'
-            if raw_text0 == '/d':
-                b_name = '**Link Input**'
-            else:
-                b_name = raw_text0
+            b_name = '**Link Input**' if raw_text0 == '/d' else raw_text0
 
             CR = globals.CR
             raw_text = '1'
@@ -418,16 +426,12 @@ async def drm_handler(bot: Client, m: Message):
 
             #elif "d1d34p8vz63oiq" in url or "sec1.pw.live" in url:
             elif "childId" in url and "parentId" in url:
-                if m.text:
-                    # Direct link mode — download as-is, no token needed
-                    pass
-                else:
-                    if pwtoken == "pwtoken" or not pwtoken:
-                        await bot.send_message(channel_id, f'⚠️ **PW Token not set!**\n**Name** =>> `{name1}`\n\n<blockquote>Please set your Physics Wallah token first via\n**Settings → Set Token → Physics Wallah**</blockquote>', disable_web_page_preview=True)
-                        count += 1
-                        failed_count += 1
-                        continue
-                    url = f"{PWAPI2}?url={url}&token={pwtoken}"
+                if pwtoken == "pwtoken" or not pwtoken:
+                    await bot.send_message(channel_id, f'⚠️ **PW Token not set!**\n**Name** =>> `{name1}`\n\n<blockquote>Please set your Physics Wallah token first via\n**Settings → Set Token → Physics Wallah**</blockquote>', disable_web_page_preview=True)
+                    count += 1
+                    failed_count += 1
+                    continue
+                url = f"{PWAPI2}?url={url}&token={pwtoken}"
             
             elif 'encrypted.m' in url:
                 appxkey = url.split('*')[1]
@@ -462,8 +466,8 @@ async def drm_handler(bot: Client, m: Message):
                 else:
                     if topic == "/yes":
                         if caption == "/cc1":
-                            cc = f'**📹 VID_ID: {str(count).zfill(3)}.\n\nTitle: {name1} STUDENTS💛{res}.mkv\n\n📚 Batch Name: {b_name}\n\n📥 Extracted By♠ : {CR}\n\n**➽━━━⊱∘₊𝙏𝙚𝙖𝙢★𝙏𝙤𝙭𝙞𝙘₊∘⊰━━━❥**'
-                            cc1 = f'**💾 PDF_ID: {str(count).zfill(3)}.\n\n📝 Title: {name1} .pdf\n\n<pre><code>📚 Batch Name: {b_name}</code></pre>\n\n📥 Extracted By♠ : {CR}\n\n**➽━━━⊱∘₊𝙏𝙚𝙖𝙢★𝙏𝙤𝙭𝙞𝙘₊∘⊰━━━❥**'
+                            cc = f'[🎥]Vid Id : {str(count).zfill(3)}\n**Video Title :** `{v_name} [{res}p].mkv`\n<blockquote><b>Batch Name : {b_name}\nTopic Name : {t_name}</b></blockquote>\n\n**Extracted by➤**{CR}\n'
+                            cc1 = f'[📕]Pdf Id : {str(count).zfill(3)}\n**File Title :** `{v_name}.pdf`\n<blockquote><b>Batch Name : {b_name}\nTopic Name : {t_name}</b></blockquote>\n\n**Extracted by➤**{CR}\n'
                             cczip = f'[📁]Zip Id : {str(count).zfill(3)}\n**Zip Title :** `{v_name}.zip`\n<blockquote><b>Batch Name : {b_name}\nTopic Name : {t_name}</b></blockquote>\n\n**Extracted by➤**{CR}\n'
                             ccimg = f'[🖼️]Img Id : {str(count).zfill(3)}\n**Img Title :** `{v_name}.jpg`\n<blockquote><b>Batch Name : {b_name}\nTopic Name : {t_name}</b></blockquote>\n\n**Extracted by➤**{CR}\n'
                             cchtml = f'[🌐]Html Id : {str(count).zfill(3)}\n**Html Title :** `{v_name}.html`\n<blockquote><b>Batch Name : {b_name}\nTopic Name : {t_name}</b></blockquote>\n\n**Extracted by➤**{CR}\n'
@@ -485,8 +489,8 @@ async def drm_handler(bot: Client, m: Message):
                             cchtml = f'<blockquote><b>⋅ ─ {t_name} ─ ⋅</b></blockquote>\n<b>{str(count).zfill(3)}.</b> {v_name} .html'
                     else:
                         if caption == "/cc1":
-                            cc = f'**📹 VID_ID: {str(count).zfill(3)}.\n\nTitle: {name1} STUDENTS💛{res}.mkv\n\n📚 Batch Name: {b_name}\n\n📥 Extracted By♠ : {CR}\n\n**➽━━━⊱∘₊𝙏𝙚𝙖𝙢★𝙏𝙤𝙭𝙞𝙘₊∘⊰━━━❥**'
-                            cc1 = f'**💾 PDF_ID: {str(count).zfill(3)}.\n\n📝 Title: {name1} .pdf\n\n<pre><code>📚 Batch Name: {b_name}</code></pre>\n\n📥 Extracted By♠ : {CR}\n\n**➽━━━⊱∘₊𝙏𝙚𝙖𝙢★𝙏𝙤𝙭𝙞𝙘₊∘⊰━━━❥**'
+                            cc = f'[🎥]Vid Id : {str(count).zfill(3)}\n**Video Title :** `{name1} [{res}p].mkv`\n<blockquote><b>Batch Name :</b> {b_name}</blockquote>\n\n**Extracted by➤**{CR}\n'
+                            cc1 = f'[📕]Pdf Id : {str(count).zfill(3)}\n**File Title :** `{name1}.pdf`\n<blockquote><b>Batch Name :</b> {b_name}</blockquote>\n\n**Extracted by➤**{CR}\n'
                             cczip = f'[📁]Zip Id : {str(count).zfill(3)}\n**Zip Title :** `{name1}.zip`\n<blockquote><b>Batch Name :</b> {b_name}</blockquote>\n\n**Extracted by➤**{CR}\n' 
                             ccimg = f'[🖼️]Img Id : {str(count).zfill(3)}\n**Img Title :** `{name1}.jpg`\n<blockquote><b>Batch Name :</b> {b_name}</blockquote>\n\n**Extracted by➤**{CR}\n'
                             ccm = f'[🎵]Audio Id : {str(count).zfill(3)}\n**Audio Title :** `{name1}.mp3`\n<blockquote><b>Batch Name :</b> {b_name}</blockquote>\n\n**Extracted by➤**{CR}\n'
