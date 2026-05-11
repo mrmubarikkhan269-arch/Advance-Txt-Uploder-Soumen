@@ -53,7 +53,7 @@ def register_broadcast_handlers(bot):
         if not TOTAL_USERS:
             await message.reply_text("**No Broadcasted User**")
             return
- 
+
         user_infos = []
         for user_id in list(set(TOTAL_USERS)):
             try:
@@ -61,15 +61,22 @@ def register_broadcast_handlers(bot):
                 fname = user.first_name if user.first_name else " "
                 user_infos.append(f"[{user.id}](tg://openmessage?user_id={user.id}) | `{fname}`")
             except Exception:
-                user_infos.append(f"[{user.id}](tg://openmessage?user_id={user.id})")
+                user_infos.append(f"`{user_id}`")
 
         total = len(user_infos)
-        text = (
+        header = (
             f"<blockquote><b>Total Users: {total}</b></blockquote>\n\n"
             "<b>Users List:</b>\n"
-            + "\n".join(user_infos)
         )
-        await message.reply_text(text)
-    
-# .....,.....,.......,...,.......,....., .....,.....,.......,...,.......,.....,
+
+        chunk = header
+        for line in user_infos:
+            if len(chunk) + len(line) + 1 > 4096:
+                await message.reply_text(chunk, parse_mode=ParseMode.HTML)
+                chunk = ""
+            chunk += line + "\n"
+        if chunk:
+            await message.reply_text(chunk, parse_mode=ParseMode.HTML)
+
+# .....,.....,.......,...,.......,.....,...,.......,...,.......,.....,
 # .....,.....,.......,...,.......,....., .....,.....,.......,...,.......,.....,
