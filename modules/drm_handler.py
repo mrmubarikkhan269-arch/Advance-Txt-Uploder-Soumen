@@ -478,8 +478,8 @@ async def drm_handler(bot: Client, m: Message):
                 else:
                     if topic == "/yes":
                         if caption == "/cc1":
-                            cc = f'**📹 VID_ID : {str(count).zfill(3)}.\n\n📝Title :`{v_name} [{res}p].mkv`\n\n<pre><code>📚 Batch Name : {b_name}</code></pre>\nTopic Name : {t_name}</b></blockquote>\n\n📥 Extracted By♠ : {CR}\n\n**➽━━━⊱∘₊𝙏𝙚𝙖𝙢★𝙏𝙤𝙭𝙞𝙘₊∘⊰━━━❥**'
-                            cc1 = f'**💾PDF_ID : {str(count).zfill(3)}.\n\n📝Title :`{v_name}.pdf`\n\n<pre><code>📚 Batch Name : {b_name}</code></pre>\nTopic Name : {t_name}</b></blockquote>\n\n📥 Extracted By♠ : {CR}\n\n**➽━━━⊱∘₊𝙏𝙚𝙖𝙢★𝙏𝙤𝙭𝙞𝙘₊∘⊰━━━❥**'
+                            cc = f'**📹 VID_ID : {str(count).zfill(3)}.\n\n📝Title :{v_name} [{res}p].mkv\n\n<pre><code>📚 Batch Name : {b_name}</code></pre>\nTopic Name : {t_name}</b></blockquote>\n\n📥 Extracted By♠ : {CR}\n\n**➽━━━⊱∘₊𝙏𝙚𝙖𝙢★𝙏𝙤𝙭𝙞𝙘₊∘⊰━━━❥**'
+                            cc1 = f'**💾PDF_ID : {str(count).zfill(3)}.\n\n📝Title :{v_name}.pdf\n\n<pre><code>📚 Batch Name : {b_name}</code></pre>\nTopic Name : {t_name}</b></blockquote>\n\n📥 Extracted By♠ : {CR}\n\n**➽━━━⊱∘₊𝙏𝙚𝙖𝙢★𝙏𝙤𝙭𝙞𝙘₊∘⊰━━━❥**'
                             cczip = f'[📁]Zip Id : {str(count).zfill(3)}\n**Zip Title :** `{v_name}.zip`\n<blockquote><b>Batch Name : {b_name}\nTopic Name : {t_name}</b></blockquote>\n\n**Extracted by➤**{CR}\n'
                             ccimg = f'[🖼️]Img Id : {str(count).zfill(3)}\n**Img Title :** `{v_name}.jpg`\n<blockquote><b>Batch Name : {b_name}\nTopic Name : {t_name}</b></blockquote>\n\n**Extracted by➤**{CR}\n'
                             cchtml = f'[🌐]Html Id : {str(count).zfill(3)}\n**Html Title :** `{v_name}.html`\n<blockquote><b>Batch Name : {b_name}\nTopic Name : {t_name}</b></blockquote>\n\n**Extracted by➤**{CR}\n'
@@ -501,8 +501,8 @@ async def drm_handler(bot: Client, m: Message):
                             cchtml = f'<blockquote><b>⋅ ─ {t_name} ─ ⋅</b></blockquote>\n<b>{str(count).zfill(3)}.</b> {v_name} .html'
                     else:
                         if caption == "/cc1":
-                            cc = f'**📹 VID_ID : {str(count).zfill(3)}.\n\n📝Title :`{name1} [{res}p].mkv`\n\n<pre><code>📚 Batch Name : {b_name}</code></pre>\n\n📥 Extracted By♠ : {CR}\n\n**➽━━━⊱∘₊𝙏𝙚𝙖𝙢★𝙏𝙤𝙭𝙞𝙘₊∘⊰━━━❥**'
-                            cc1 = f'**💾PDF_ID : {str(count).zfill(3)}.\n\n📝Title :`{name1}.pdf`\n\n<pre><code>📚 Batch Name : {b_name}</code></pre>\n\n📥 Extracted By♠ : {CR}\n\n**➽━━━⊱∘₊𝙏𝙚𝙖𝙢★𝙏𝙤𝙭𝙞𝙘₊∘⊰━━━❥**'
+                            cc = f'**📹 VID_ID : {str(count).zfill(3)}.\n\n📝Title :{name1} [{res}p].mkv\n\n<pre><code>📚 Batch Name : {b_name}</code></pre>\n\n📥 Extracted By♠ : {CR}\n\n**➽━━━⊱∘₊𝙏𝙚𝙖𝙢★𝙏𝙤𝙭𝙞𝙘₊∘⊰━━━❥**'
+                            cc1 = f'**💾PDF_ID : {str(count).zfill(3)}.\n\n📝Title :{name1}.pdf\n\n<pre><code>📚 Batch Name : {b_name}</code></pre>\n\n📥 Extracted By♠ : {CR}\n\n**➽━━━⊱∘₊𝙏𝙚𝙖𝙢★𝙏𝙤𝙭𝙞𝙘₊∘⊰━━━❥**'
                             cczip = f'[📁]Zip Id : {str(count).zfill(3)}\n**Zip Title :** `{name1}.zip`\n<blockquote><b>Batch Name :</b> {b_name}</blockquote>\n\n**Extracted by➤**{CR}\n' 
                             ccimg = f'[🖼️]Img Id : {str(count).zfill(3)}\n**Img Title :** `{name1}.jpg`\n<blockquote><b>Batch Name :</b> {b_name}</blockquote>\n\n**Extracted by➤**{CR}\n'
                             ccm = f'[🎵]Audio Id : {str(count).zfill(3)}\n**Audio Title :** `{name1}.mp3`\n<blockquote><b>Batch Name :</b> {b_name}</blockquote>\n\n**Extracted by➤**{CR}\n'
