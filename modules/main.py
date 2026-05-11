@@ -51,10 +51,10 @@ bot = Client(
 
 # .....,.....,.......,...,.......,....., .....,.....,.......,...,.......,.....,
 keyboard = InlineKeyboardMarkup([
-            [InlineKeyboardButton("✨ Commands", callback_data="cmd_command")],
-            [InlineKeyboardButton("💎 Features", callback_data="feat_command"), InlineKeyboardButton("⚙️ Settings", callback_data="setttings")],
-            [InlineKeyboardButton("💳 Our Plans", callback_data="upgrade_command")],
-            [InlineKeyboardButton(text="📞 Contact", url=f"tg://openmessage?user_id={OWNER}"), InlineKeyboardButton(text="👑 Owner", url="https://t.me/MR_Toxic_1")],
+            [InlineKeyboardButton("✨ All Commands", callback_data="cmd_command")],
+            [InlineKeyboardButton("💎 All Features", callback_data="feat_command"), InlineKeyboardButton("⚙️ Settings", callback_data="setttings")],
+            [InlineKeyboardButton("💳 Premium Plans", callback_data="upgrade_command")],
+            [InlineKeyboardButton(text="🔍 Developer", url="https://t.me/SmartBoy_ApnaMS"), InlineKeyboardButton(text="👑 Owner", url="https://t.me/MR_Toxic_1")],
         ])      
 
 @bot.on_message(filters.command("start"))
@@ -66,7 +66,7 @@ async def start(bot, m: Message):
     mention = user.mention
     if m.chat.id in AUTH_USERS:
         caption = (
-            f"𝐇𝐞𝐥𝐥𝐨 𝐃𝐞𝐚𝐫!\n\n"
+            f"𝐇𝐞𝐥𝐥𝐨 𝐃𝐞𝐚𝐫😘!\n\n"
             f"➠ 𝐈 𝐚𝐦 𝐚 𝐓𝐞𝐱𝐭 𝐃𝐨𝐰𝐧𝐥𝐨𝐚𝐝𝐞𝐫 𝐁𝐨𝐭\n\n"
             f"➠ Can Extract Videos & PDFs From Your Text File and Upload to Telegram!\n\n"
             f"➠ For Guide Use button - **✨ Commands** 📖\n\n"
@@ -74,12 +74,12 @@ async def start(bot, m: Message):
         )
     else:
         caption = (
-            f"𝐇𝐞𝐥𝐥𝐨 **{m.from_user.first_name}** 👋!\n\n"
+            f"𝐇𝐞𝐥𝐥𝐨🙈 **{m.from_user.first_name}** 👋!\n\n"
             f"➠ 𝐈 𝐚𝐦 𝐚 𝐓𝐞𝐱𝐭 𝐃𝐨𝐰𝐧𝐥𝐨𝐚𝐝𝐞𝐫 𝐁𝐨𝐭\n\n"
             f"➠ Can Extract Videos & PDFs From Your Text File and Upload to Telegram!\n\n"
             f"**You are currently using the free version.** 🆓\n"
-            f"**Want to get started? Press /id**\n\n"
-            f"💬 Contact: [{CREDIT}](tg://openmessage?user_id={OWNER}) to Get The Subscription ! 🔓\n"
+            f"**Want to get Premium so let's started? Press /id**\n\n"
+            f"💬 Contact: [{CREDIT}](tg://openmessage?user_id={OWNER}) to Get the Premium Subscription ! 🔓\n"
         )
     await bot.send_photo(
         chat_id=m.chat.id,
@@ -130,10 +130,10 @@ async def info(bot: Client, update: Message):
         f"╭────────────────╮\n"
         f"│✨ **Your Telegram Info**✨ \n"
         f"├────────────────\n"
-        f"├🔹**Name :** `{update.from_user.first_name} {update.from_user.last_name if update.from_user.last_name else 'None'}`\n"
-        f"├🔹**User ID :** {('@' + update.from_user.username) if update.from_user.username else 'None'}\n"
-        f"├🔹**TG ID :** `{update.from_user.id}`\n"
-        f"├🔹**Profile :** {update.from_user.mention}\n"
+        f"├🔹**Your Name :** `{update.from_user.first_name} {update.from_user.last_name if update.from_user.last_name else 'None'}`\n"
+        f"├🔹**User Name :** {('@' + update.from_user.username) if update.from_user.username else 'None'}\n"
+        f"├🔹**User ID:** `{update.from_user.id}`\n"
+        f"├🔹**Your Profile :** {update.from_user.mention}\n"
         f"╰────────────────╯"
     )    
     await update.reply_text(        
