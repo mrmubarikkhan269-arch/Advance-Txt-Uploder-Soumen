@@ -332,7 +332,7 @@ async def drm_handler(bot: Client, m: Message):
     try:
         for i in range(arg-1, len(links)):
             if globals.cancel_requested:
-                await m.reply_text("🚦**STOPPED**🚦")
+                await m.reply_text("🌼**STOPPED**🌼")
                 globals.processing_request = False
                 globals.cancel_requested = False
                 return
@@ -373,14 +373,14 @@ async def drm_handler(bot: Client, m: Message):
                         t_name = "Untitled"
                         v_name = re.sub(r":.*", "", raw_title).strip()
                     
-                    if endfilename == "/Bro":
+                    if endfilename == "/d":
                         name = f'{str(count).zfill(3)}) {name1[:60]}'
                         namef = f'{v_name}'
                     else:
                         name = f'{str(count).zfill(3)}) {name1[:60]} {endfilename}'
                         namef = f'{v_name} {endfilename}'
                 else:
-                    if endfilename == "/Bro":
+                    if endfilename == "/d":
                         name = f'{str(count).zfill(3)}) {name1[:60]}'
                         namef = f'{name1[:60]}'
                     else:
