@@ -279,14 +279,14 @@ async def drm_handler(bot: Client, m: Message):
             except Exception:
                     res = "UN"
 
-            await editable.edit("**(2). Enter Batch Name or send /Sis\n\nAnd baaki Chize jo Settings\nMe Set hai Wo automatic Lag jaayegi.\n\nJaise ki Credit Name 🌚.\n\nYour Are On Step: 2/2💥**")
+            await editable.edit("**(2). Enter Batch Name or send /Bro\n\nAnd baaki Chize jo Settings\nMe Set hai Wo automatic Lag jaayegi.\n\nJaise ki Credit Name 🌚.\n\nYour Are On Step: 2/2💥**")
             try:
                 input_bn: Message = await bot.listen(editable.chat.id, filters=filters.text & filters.user(m.from_user.id))
                 raw_text0 = input_bn.text
                 await input_bn.delete(True)
             except Exception:
-                raw_text0 = '/Sis'
-            b_name = '**Link Input**' if raw_text0 == '/Sis' else raw_text0
+                raw_text0 = '/Bro'
+            b_name = '**Link Input**' if raw_text0 == '/Bro' else raw_text0
 
             CR = globals.CR
             raw_text = '1'
@@ -365,7 +365,7 @@ async def drm_handler(bot: Client, m: Message):
                         name = f'{str(count).zfill(3)}) {name1[:60]} {endfilename}'
                         namef = f'{v_name} {endfilename}'
                 else:
-                    if endfilename == "/Sis":
+                    if endfilename == "/Bro":
                         name = f'{str(count).zfill(3)}) {name1[:60]}'
                         namef = f'{name1[:60]}'
                     else:
@@ -493,8 +493,8 @@ async def drm_handler(bot: Client, m: Message):
                             cchtml = f'<blockquote><b>⋅ ─ {t_name} ─ ⋅</b></blockquote>\n<b>{str(count).zfill(3)}.</b> {v_name} .html'
                     else:
                         if caption == "/cc1":
-                            cc = f'[🎥]Vid Id : {str(count).zfill(3)}\n**Video Title :** `{name1} [{res}p].mkv`\n<blockquote><b>Batch Name :</b> {b_name}</blockquote>\n\n**Extracted by➤**{CR}\n'
-                            cc1 = f'[📕]Pdf Id : {str(count).zfill(3)}\n**File Title :** `{name1}.pdf`\n<blockquote><b>Batch Name :</b> {b_name}</blockquote>\n\n**Extracted by➤**{CR}\n'
+                            cc = f'**📹 VID_ID : {str(count).zfill(3)}.\n\n📝Title :`{name1} [{res}p].mkv`\n\n<pre><code>📚 Batch Name : {b_name}</code></pre>\n\n📥 Extracted By♠ : {CR}\n\n**➽━━━⊱∘₊𝙏𝙚𝙖𝙢★𝙏𝙤𝙭𝙞𝙘₊∘⊰━━━❥**'
+                            cc1 = f'**💾PDF_ID : {str(count).zfill(3)}.\n\n📝Title :`{name1}.pdf`\n\n<pre><code>📚 Batch Name : {b_name}</code></pre>\n\n📥 Extracted By♠ : {CR}\n\n**➽━━━⊱∘₊𝙏𝙚𝙖𝙢★𝙏𝙤𝙭𝙞𝙘₊∘⊰━━━❥**'
                             cczip = f'[📁]Zip Id : {str(count).zfill(3)}\n**Zip Title :** `{name1}.zip`\n<blockquote><b>Batch Name :</b> {b_name}</blockquote>\n\n**Extracted by➤**{CR}\n' 
                             ccimg = f'[🖼️]Img Id : {str(count).zfill(3)}\n**Img Title :** `{name1}.jpg`\n<blockquote><b>Batch Name :</b> {b_name}</blockquote>\n\n**Extracted by➤**{CR}\n'
                             ccm = f'[🎵]Audio Id : {str(count).zfill(3)}\n**Audio Title :** `{name1}.mp3`\n<blockquote><b>Batch Name :</b> {b_name}</blockquote>\n\n**Extracted by➤**{CR}\n'
@@ -531,7 +531,7 @@ async def drm_handler(bot: Client, m: Message):
                         f'╰━━🖇️𝐔𝐫𝐥 » <a href="{url}">**Api Link**</a>\n' \
                         f"━━━━━━━━━━━━━━━━━━━━━━━━━\n" \
                         f"🛑**Send** /stop **to stop process**\n┃\n" \
-                        f"╰━✦𝐁𝐨𝐭 𝐌𝐚𝐝𝐞 𝐁𝐲 ✦ {CREDIT}"
+                        f"╰━✦𝐁𝐨𝐭 𝐌𝐚𝐝𝐞 𝐁𝐲 ✦ {CREDIT}😎."
 #........................................................................................................................................................................................           
                 if "drive" in url:
                     try:
@@ -694,7 +694,7 @@ def register_owner_commands(bot):
         db.register_user(msg.from_user.id)
         owner_text = (
             "┌──────────────────────────┐\n"
-            "**My Owner**:@SmartBoy_ApnaMS\n"
+            "**My Owner😎**:@SmartBoy_ApnaMS\n"
             "└──────────────────────────┘\n\n"
         )
         await msg.reply_text(owner_text)
@@ -708,8 +708,8 @@ def register_owner_commands(bot):
         global PWAPI1, PWAPI2
         if msg.from_user.id != OWNER:
             return await msg.reply_text(
-                "To change your Api in your Repository in this format\n\n"
-                "/changeapi New Api Here\n\n"
+                "To change your Api in your Repository in this format👇🏻.\n\n"
+                "/changeapi New Api Here\n**https... to .com/pw** tak Only😁.\n\n"
                 "But But But🫡\n"
                 "Sorry you are not my owner😒."
             )
@@ -718,7 +718,7 @@ def register_owner_commands(bot):
         if len(parts) < 2 or not parts[1].strip():
             return await msg.reply_text(
                 "Welcome Boss To change your Api in your Repository in this format\n\n"
-                "/changeapi New Api Here\n\n"
+                "/changeapi New Api Here\n**https... to .com/pw** tak Only😁.\n\n"
                 "Send me I will change it.✨"
             )
 
@@ -728,7 +728,7 @@ def register_owner_commands(bot):
         await msg.reply_text(
             f"✅ **Api Successfully Changed!**\n\n"
             f"🔗 **New Api:**\n`{PWAPI1}`\n\n"
-            f"⚡ Change is Live Now — No restart needed! 🚀"
+            f"⚡ Changed Live Now — No Bot restart needed Use Now🚀."
         )
 
 #============================================================================================================
