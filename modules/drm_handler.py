@@ -253,14 +253,14 @@ async def drm_handler(bot: Client, m: Message):
             channel_id = m.chat.id
             CR = globals.CR
             path = os.path.join("downloads", "Free Batch")
-            await editable.edit("**(2). Enter Batch Name or send /Bro\n\nAnd baaki Chize jo Settings\nMe Set hai Wo automatic Lag jaayegi.\n\nJaise ki Credit Name 🌚.\n\nYour Are On Step: 2/2💥**")
+            await editable.edit("**(2). Enter Batch Name or send /unknown if you don't know Name😅.\n\nAnd baaki Chize jo Settings\nMe Set hai Wo automatic Lag jaayegi.\n\nJaise ki Credit Name 🌚.\n\nYour Are On Step: 2/2💥**")
             try:
                 input_bn: Message = await bot.listen(editable.chat.id, filters=filters.text & filters.user(m.from_user.id))
                 raw_text0 = input_bn.text
                 await input_bn.delete(True)
             except Exception:
-                raw_text0 = '/Bro'
-            b_name = 'Bataya hi Nahi😏😏' if raw_text0 == '/Bro' else raw_text0
+                raw_text0 = '/unknown'
+            b_name = 'Unknow Batch😕😂.' if raw_text0 == '/unknown' else raw_text0
             await editable.delete()
         else:
             editable = await m.reply_text(f"**(1.) Great, Your Link is Captured 🙈\n╭━━━━❰ᴇɴᴛᴇʀ ʀᴇꜱᴏʟᴜᴛɪᴏɴ❱━━➣ \n┣━━⪼ send `144`  for 144p\n┣━━⪼ send `240`  for 240p\n┣━━⪼ send `360`  for 360p\n┣━━⪼ send `480`  for 480p\n┣━━⪼ send `720`  for 720p\n┣━━⪼ send `1080` for 1080p\n╰━━⌈⚡[🦋`{CREDIT}`🦋]⚡⌋━━➣\n\nYour Are On Step: 1/2💥**")
@@ -287,14 +287,14 @@ async def drm_handler(bot: Client, m: Message):
             except Exception:
                 res = "UN"
 
-            await editable.edit("**(2). Enter Batch Name or send /Bro\n\nAnd baaki Chize jo Settings\nMe Set hai Wo automatic Lag jaayegi.\n\nJaise ki Credit Name 🌚.\n\nYour Are On Step: 2/2💥**")
+            await editable.edit("**(2). Enter Batch Name or send /unknow if you don't know Name😅.\n\nAnd baaki Chize jo Settings\nMe Set hai Wo automatic Lag jaayegi.\n\nJaise ki Credit Name 🌚.\n\nYour Are On Step: 2/2💥**")
             try:
                 input_bn: Message = await bot.listen(editable.chat.id, filters=filters.text & filters.user(m.from_user.id))
                 raw_text0 = input_bn.text
                 await input_bn.delete(True)
             except Exception:
-                raw_text0 = '/Bro'
-            b_name = 'Bataya hi Nahi😏😏' if raw_text0 == '/Bro' else raw_text0
+                raw_text0 = '/unknow'
+            b_name = 'Unknow Batch😕😂.' if raw_text0 == '/unknow' else raw_text0
 
             CR = globals.CR
             raw_text = '1'
