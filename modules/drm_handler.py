@@ -28,6 +28,30 @@ PWAPI1 = "https://anonymouspwplayerr-3cfbfedeb317.herokuapp.com/pw"
 PWAPI2 = "https://anonymouspwplayerr-3cfbfedeb317.herokuapp.com/pw"
 # ─────────────────────────────────────────────────────────────────────────────
 
+# ── Random image list ────────────────────────────────────────────────────────
+image_list = [
+    "https://graph.org/file/417cc7326cab9036c0152-f6a281db2a6975dfa9.jpg",
+    "https://graph.org/file/033121ad32291bcaddd01-d91ae4a1f7ca9378fc.jpg",
+    "https://graph.org/file/45f48779e0aa39709d1e8-4c024567d60f6ec5c2.jpg",
+    "https://graph.org/file/6ccdd92af77784c9d367e-a4ba6f10456656bbbd.jpg",
+    "https://graph.org/file/b23084c3e9124e14e18ec-d385f8f9c8b1635a2e.jpg",
+    "https://graph.org/file/29c4511ee7a4653d22fe1-67906a2a8392895644.jpg",
+    "https://graph.org/file/b45300f1cd068ad8f1895-fa23a3a1ad25789597.jpg",
+]
+# ─────────────────────────────────────────────────────────────────────────────
+
+# ── Credit href parser ────────────────────────────────────────────────────────
+# Supports: "TEXT|https://url" → "[TEXT](https://url)" (Telegram markdown link)
+# Normal text with no "|" passes through unchanged.
+def parse_credit(raw: str) -> str:
+    if "|" in raw:
+        parts = raw.split("|", 1)
+        text = parts[0].strip()
+        url  = parts[1].strip()
+        return f"[{text}]({url})"
+    return raw
+# ─────────────────────────────────────────────────────────────────────────────
+
 # .....,.....,.......,...,.......,....., .....,.....,.......,...,.......,.....,
 
 async def drm_handler(bot: Client, m: Message):
@@ -58,7 +82,19 @@ async def drm_handler(bot: Client, m: Message):
         lines = content.split("\n")
         os.remove(x)
     elif m.text and "://" in m.text:
-        lines = [m.text]
+        # Support "Title: URL" format — split on first ": " (colon + space)
+        raw_line = m.text.strip()
+        if ": " in raw_line and not raw_line.startswith("http"):
+            colon_space_idx = raw_line.index(": ")
+            direct_title = raw_line[:colon_space_idx].strip()
+            direct_url_full = raw_line[colon_space_idx + 2:].strip()
+            if "://" in direct_url_full:
+                scheme, rest = direct_url_full.split("://", 1)
+                lines = [f"{direct_title}://{rest}"]
+            else:
+                lines = [raw_line]
+        else:
+            lines = [raw_line]
     else:
         return
 
@@ -134,6 +170,57 @@ async def drm_handler(bot: Client, m: Message):
         else:
             b_name = raw_text0
 
+        await editable.edit("**Enter resolution.\n Eg : 144, 240, 360, 480, 720 or 1080😚**")
+        try:
+            input2: Message = await bot.listen(editable.chat.id, timeout=30)
+            raw_text2 = input2.text
+            await input2.delete(True)
+        except asyncio.TimeoutError:
+            raw_text2 = '480'
+        try:
+            if raw_text2 == "144":
+                res = "256x144"
+            elif raw_text2 == "240":
+                res = "426x240"
+            elif raw_text2 == "360":
+                res = "640x360"
+            elif raw_text2 == "480":
+                res = "854x480"
+            elif raw_text2 == "720":
+                res = "1280x720"
+            elif raw_text2 == "1080":
+                res = "1920x1080"
+            else:
+                res = "UN"
+        except Exception:
+            res = "UN"
+        quality = f"{raw_text2}p"
+
+        await editable.edit("**Enter Your Credit Name or send /d for default.\nSupports: `Text|https://url` for hyperlink credit 😎**")
+        try:
+            input3: Message = await bot.listen(editable.chat.id, timeout=20)
+            raw_text3 = input3.text
+            await input3.delete(True)
+        except asyncio.TimeoutError:
+            raw_text3 = '/d'
+        if raw_text3 == '/d':
+            CR = globals.CR
+        else:
+            CR = parse_credit(raw_text3)
+
+        await editable.edit("**Now send the Thumb URL\nEg: Ends With .jpg**\n\nor Send `no`")
+        try:
+            input6: Message = await bot.listen(editable.chat.id, timeout=20)
+            raw_text6 = input6.text
+            await input6.delete(True)
+        except asyncio.TimeoutError:
+            raw_text6 = 'no'
+        if raw_text6.startswith("http://") or raw_text6.startswith("https://"):
+            getstatusoutput(f"wget '{raw_text6}' -O 'thumb.jpg'")
+            thumb = "thumb.jpg"
+        else:
+            thumb = globals.thumb
+
         await editable.edit("__**⚠️Provide the Channel ID or send /d__\n\n<blockquote><i>🔹 Make me an admin to upload.\n🔸Send /id in your channel to get the Channel ID.\n\nExample: Channel ID = -100XXXXXXXXXXX</i></blockquote>\n**")
         try:
             input7: Message = await bot.listen(editable.chat.id, timeout=20)
@@ -154,6 +241,7 @@ async def drm_handler(bot: Client, m: Message):
             raw_text7 = '/d'
             channel_id = m.chat.id
             b_name = '**Link Input**'
+            CR = globals.CR
             await m.delete()
         else:
             editable = await m.reply_text(f"╭━━━━❰ᴇɴᴛᴇʀ ʀᴇꜱᴏʟᴜᴛɪᴏɴ❱━━➣ \n┣━━⪼ send `144`  for 144p\n┣━━⪼ send `240`  for 240p\n┣━━⪼ send `360`  for 360p\n┣━━⪼ send `480`  for 480p\n┣━━⪼ send `720`  for 720p\n┣━━⪼ send `1080` for 1080p\n╰━━⌈⚡[🦋`{CREDIT}`🦋]⚡⌋━━➣ ")
@@ -179,10 +267,23 @@ async def drm_handler(bot: Client, m: Message):
                     res = "UN"
             except Exception:
                     res = "UN"
+
+            await editable.edit("**Enter Batch Name or send /d**")
+            try:
+                input_bn: Message = await bot.listen(editable.chat.id, filters=filters.text & filters.user(m.from_user.id))
+                raw_text0 = input_bn.text
+                await input_bn.delete(True)
+            except Exception:
+                raw_text0 = '/d'
+            if raw_text0 == '/d':
+                b_name = '**Link Input**'
+            else:
+                b_name = raw_text0
+
+            CR = globals.CR
             raw_text = '1'
             raw_text7 = '/d'
             channel_id = m.chat.id
-            b_name = '**Link Input**'
             path = os.path.join("downloads", "Free Batch")
             await editable.delete()
         
@@ -317,12 +418,16 @@ async def drm_handler(bot: Client, m: Message):
 
             #elif "d1d34p8vz63oiq" in url or "sec1.pw.live" in url:
             elif "childId" in url and "parentId" in url:
-                if pwtoken == "pwtoken" or not pwtoken:
-                    await bot.send_message(channel_id, f'⚠️ **PW Token not set!**\n**Name** =>> `{name1}`\n\n<blockquote>Please set your Physics Wallah token first via\n**Settings → Set Token → Physics Wallah**</blockquote>', disable_web_page_preview=True)
-                    count += 1
-                    failed_count += 1
-                    continue
-                url = f"{PWAPI2}?url={url}&token={pwtoken}"
+                if m.text:
+                    # Direct link mode — download as-is, no token needed
+                    pass
+                else:
+                    if pwtoken == "pwtoken" or not pwtoken:
+                        await bot.send_message(channel_id, f'⚠️ **PW Token not set!**\n**Name** =>> `{name1}`\n\n<blockquote>Please set your Physics Wallah token first via\n**Settings → Set Token → Physics Wallah**</blockquote>', disable_web_page_preview=True)
+                        count += 1
+                        failed_count += 1
+                        continue
+                    url = f"{PWAPI2}?url={url}&token={pwtoken}"
             
             elif 'encrypted.m' in url:
                 appxkey = url.split('*')[1]
@@ -348,8 +453,8 @@ async def drm_handler(bot: Client, m: Message):
 #........................................................................................................................................................................................
             try:
                 if m.text:
-                    cc = f'[{name1} [{res}p].mkv]({link0})'
-                    cc1 = f'[{name1}.pdf]({link0})'
+                    cc = f'**📹 VID_ID: {str(count).zfill(3)}.\n\n📝 Title: {name1} {res}.mkv\n\n<pre><code>📚 Batch Name: {b_name}</code></pre>\n\n📥 Extracted By♠ : {CR}\n\n**∘₊❀━━━𓆩Mคɦɨ𓆪━━━❀₊∘**'
+                    cc1 = f'**💾 PDF_ID: {str(count).zfill(3)}.\n\n📝 Title: {name1} .pdf\n\n<pre><code>📚 Batch Name: {b_name}</code></pre>\n\n📥 Extracted By♠ : {CR}\n\n**∘₊❀━━━𓆩Mคɦɨ𓆪━━━❀₊∘**'
                     cczip = f'[{name1}.zip]({link0})'
                     ccimg = f'[{name1}.jpg]({link0})'
                     ccm = f'[{name1}.mp3]({link0})'
