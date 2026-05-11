@@ -286,7 +286,7 @@ async def drm_handler(bot: Client, m: Message):
                 await input_bn.delete(True)
             except Exception:
                 raw_text0 = '/Bro'
-            b_name = '**Link Input**' if raw_text0 == '/Bro' else raw_text0
+            b_name = 'Bataya hi Nahi😏😏' if raw_text0 == '/Bro' else raw_text0
 
             CR = globals.CR
             raw_text = '1'
