@@ -253,6 +253,7 @@ async def drm_handler(bot: Client, m: Message):
             channel_id = m.chat.id
             CR = globals.CR
             path = os.path.join("downloads", "Free Batch")
+            editable = await m.reply_text("**(1). PDF/Image Link Captured ✅\n\nSettings se Credit Name automatic lagega 🌚.\n\nYour Are On Step: 1/2💥**")
             await editable.edit("**(2). Enter Batch Name or send /unknown if you don't know Name😅.\n\nAnd baaki Chize jo Settings\nMe Set hai Wo automatic Lag jaayegi.\n\nJaise ki Credit Name 🌚.\n\nYour Are On Step: 2/2💥**")
             try:
                 input_bn: Message = await bot.listen(editable.chat.id, filters=filters.text & filters.user(m.from_user.id))
@@ -352,7 +353,13 @@ async def drm_handler(bot: Client, m: Message):
                     namef = f'{audio_title[:60]}'
                 else:
                     name = f'{name1[:60]}'
-                    namef = f'{name1[:60]}'
+                    # If name1 is empty (no title given), extract filename from URL
+                    if name1.strip():
+                        namef = f'{name1[:60]}'
+                    else:
+                        url_filename = url.split("/")[-1].split("?")[0]
+                        url_filename = os.path.splitext(url_filename)[0]  # remove extension
+                        namef = url_filename[:60] if url_filename else f'file_{count}'
             else:
                 if topic == "/yes":
                     raw_title = links[i][0]
